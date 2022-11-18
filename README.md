@@ -1,4 +1,4 @@
-# light-fitter
+# PV Solar Cell Calculator
 Fits JxV curves obtained from solar cells under illumination and calculates important parameters
 
 ## How does it work?
@@ -7,7 +7,7 @@ The program reads a .dat or .txt file with experimental data from JxV (current d
 ## Examples
 
 ```
-~$ python3 light.py
+~$ python main.py
  Rs= 6.802274180232417 Ohm m²
  Rsh= 51.78864221518462 Ohm m²
  Voc= 23.01824827450167 V
@@ -16,6 +16,3 @@ The program reads a .dat or .txt file with experimental data from JxV (current d
  PCE= 3.7142494517810594 %
 ```
 ![Sample](images/luzexample.png)
-
-## Requirements
-See requirements-python.txt. Also needs the func.py for additional polynomial functions.
