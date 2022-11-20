@@ -1,6 +1,6 @@
 flask~=2.2.2
 numpy
-scipy~=1.8.1
-matplotlib~=3.5.2
+scipy
+matplotlib
 gunicorn
-pandas~=1.4.3
+pandas
