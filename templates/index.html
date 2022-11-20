@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href='/static/css/main.css'/>
+</head>
+<body>
+<footer>
+    <p>by Ferhat OZCELIK</p>
+</footer>
+{% for message in get_flashed_messages() %}
+<div class="alert-error">Error: {{ message }}</div>
+{% endfor %}
+
+<h1>PV Solar Cell Calculator</h1>
+<p>PV Solar Cell Calculator CSV file</p>
+
+<p>Rs(Ohm m²)<br/>Rsh(Ohm m²)<br/>Voc(V)<br/>Jsc(A/m²)<br/>FF(%)<br/>PCE(%)<br/>calculates these values</p>
+
+<p>CSV file 1st column x-axis J(A/m²) and the 2nd column y-axis must be of V(V) type.</p>
+
+<form method="POST" enctype="multipart/form-data" action="/">
+    <div>
+        <label class="drop-container" for="file">
+            <span class="drop-title">Drop files here</span>
+            or
+            <input type="file" id="file" name="filename" accept=".csv" required>
+            <span class="drop-title">Delimiter</span>
+            <input class="input-text" type="text" id="delimiter" name="delimiter" value="{{delimiter}}" required>
+        </label>
+    </div>
+
+    <div>
+        <p>User needs to provide the incoming power from the light source (default 1000)</p>
+        <input class="input-text" type="number" id="light_source" name="light_source" value="{{light_source}}" required>
+    </div>
+
+    <button class="button" type="submit">Calculate</button>
+
+</form>
+
+
+{% if Rs is not none %}
+<p>Rs={{Rs}} Ohm m²</p>
+{% endif %}
+
+{% if Rsh is not none %}
+<p>Rsh={{Rsh}} Ohm m²</p>
+{% endif %}
+
+{% if Voc is not none %}
+<p>Voc={{Voc}} V</p>
+{% endif %}
+
+{% if Jsc is not none %}
+<p>Jsc={{Jsc}} A/m²</p>
+{% endif %}
+
+{% if FF is not none %}
+<p>FF={{FF}} %</p>
+{% endif %}
+
+{% if PCE is not none %}
+<p>PCE={{PCE}} %)</p>
+{% endif %}
+
+{% if image_data is not none %}
+<img src="data:image/png;base64, {{ image_data }}" alt="graph">
+{% endif %}
+
+{% if data[0]|length > 0:%}
+<div>
+    <div id="div1">
+        <table class="customers">
+            <tr>
+                <th></th>
+                <th>X</th>
+                <th>Y</th>
+            </tr>
+            {% for i in range(0, data[0]|length)%}
+            <tr>
+                <td>{{i+1}}</td>
+                <td>{{data[0][i]}}</td>
+                <td>{{data[1][i]}}</td>
+            </tr>
+            {%endfor%}
+        </table>
+    </div>
+    <div id="div2">
+        <table class="customers">
+            <tr>
+                <th></th>
+                <th>X</th>
+                <th>Y</th>
+            </tr>
+            {% for i in range(0, picker_data[0]|length)%}
+            <tr>
+                <td>{{i+1}}</td>
+                <td>{{picker_data[0][i]}}</td>
+                <td>{{picker_data[1][i]}}</td>
+            </tr>
+            {%endfor%}
+        </table>
+    </div>
+</div>
+{% endif %}
+
+</body>
+</html>

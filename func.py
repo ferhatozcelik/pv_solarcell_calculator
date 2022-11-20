@@ -1,6 +1,3 @@
-import numpy as np
-
-
 def sq(x, a, b, c, d, e, f, g, h, i, j, k):
     return a * x + b * x ** 2 + c
 
