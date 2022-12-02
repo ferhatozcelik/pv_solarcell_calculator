@@ -26,13 +26,13 @@ def index():
 
             cal_value = calculate.calculate(uploaded_df_value, float(light_source))
 
-            picker_data = cal_value[7]
+            picker_data = cal_value[8]
             four_area_data = [list(picker_data[:, 0]), list(picker_data[:, 1])]
 
             return render_template('index.html', data=data, picker_data=four_area_data, delimiter=delimiter, light_source=light_source,
                                    Rs=float(cal_value[0]),
                                    Rsh=float(cal_value[1]), Voc=float(cal_value[2]),
-                                   Jsc=float(cal_value[3]), FF=float(cal_value[4]), PCE=float(cal_value[5]), image_data=cal_value[6])
+                                   Jsc=float(cal_value[3]), FF=float(cal_value[4]), PCE=float(cal_value[5]), PIN=float(cal_value[6]), image_data=cal_value[7])
         except Exception as e:
             flash("Error: " + str(e))
 

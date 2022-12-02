@@ -6,12 +6,6 @@ from scipy.optimize import root
 import func as fc
 import base64
 from io import BytesIO
-from matplotlib.figure import Figure
-
-
-# V(Volt)
-# J(A/m'2)
-# 4. Bolge deki Değerler
 
 
 def calculate(uploaded_file, light_source):
@@ -19,7 +13,8 @@ def calculate(uploaded_file, light_source):
     picker = list()
 
     for row in pickerList:
-        if float(row[0]) > 0 and float(row[1]) <= 0:
+        # if float(row[0]) * float(row[1]) <= 0:
+        if float(row[0]) >= 0 and float(row[1]) <= 0:
             picker.append([row[0], row[1]])
 
     picker = np.array(picker)
@@ -106,28 +101,26 @@ def calculate(uploaded_file, light_source):
     Rs = 1 / df[n - 1]
     Rsh = 1 / df[0]
     Voc = res
-    Jsc = y[0]
+    Jsc = 1000 * y[0]
     FF = ((Vmax * Jmax) / (Voc * Jsc)) * 100
-    EF = abs((Voc * Jsc * FF) / light_source)
+    Pin = light_source
+    EF = abs((Voc * Jsc * FF / 1000) / (0.001 * light_source))
 
     fig = plt.figure()
 
     ax1 = fig.add_subplot(111)
 
-    ax1.set_title('JxV')
-
     ax1.set_xlabel('V(V)')
-
-    ax1.set_ylabel('J(A/m²)')
-    plt.plot(x, y, 'ko', label='Experimental', markevery=37)
-    plt.plot(xt, f, 'r-', label='Fit, R²={}'.format(ma[0]))
+    ax1.set_ylabel('J(mA/cm²)')
+    plt.plot(x, 1000 * y, 'ko', label='Experimental', markevery=1)
+    plt.plot(xt, 1000 * f, 'r-', label='Fit, R²={}'.format(ma[0]))
     ax1.legend()
 
     buf = BytesIO()
     fig.savefig(buf, format="png")
     img_data = base64.b64encode(buf.getbuffer()).decode("ascii")
 
-    return [Rs, Rsh, Voc, Jsc, FF, EF, img_data, picker]
+    return [Rs, Rsh, Voc, Jsc, FF, EF, Pin, img_data, picker]
 
 
 def call_function(function, degree, x, y, n):

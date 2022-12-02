@@ -30,7 +30,7 @@
     </div>
 
     <div>
-        <p>User needs to provide the incoming power from the light source (default 1000)</p>
+        <p>User needs to provide the incoming power from the light source (in this case 100 mW/cm²)</p>
         <input class="input-text" type="number" id="light_source" name="light_source" value="{{light_source}}" required>
     </div>
 
@@ -40,11 +40,11 @@
 
 
 {% if Rs is not none %}
-<p>Rs={{Rs}} Ohm m²</p>
+<p>Rs={{Rs}} Ohm.cm²</p>
 {% endif %}
 
 {% if Rsh is not none %}
-<p>Rsh={{Rsh}} Ohm m²</p>
+<p>Rsh={{Rsh}} Ohm.cm²</p>
 {% endif %}
 
 {% if Voc is not none %}
@@ -52,11 +52,15 @@
 {% endif %}
 
 {% if Jsc is not none %}
-<p>Jsc={{Jsc}} A/m²</p>
+<p>Jsc={{Jsc}} mA/cm²</p>
 {% endif %}
 
 {% if FF is not none %}
 <p>FF={{FF}} %</p>
+{% endif %}
+
+{% if PIN is not none %}
+<p>Pin={{PIN}} mW/cm²</p>
 {% endif %}
 
 {% if PCE is not none %}
